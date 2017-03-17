@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% set active_page ="index" %}
+
+{% block subtitle %}
+  Home page
+  {% endblock %}
+
+{% block content %}
+      <div class="jumbotron">
+        <h1>Group buying in Factory Price</h1>
+        <p>FGB is a group buy platform allowing ...</p>
+      </div>
+     	<h2> Product Listings</h2>
+
+     	<div>
+	  	{% for project in projects %}
+
+	  	{% if loop.index % 3 == 1 %}
+	  	<div class="row">
+
+	  	{% endif %}
+
+	  		<div class="col-sm-3">
+	  			<div class="search-card" style="padding: 15px;
+  border: 1px solid #000;
+  height: 415px;
+  margin-bottom: 40px;">
+	  				<div class="search-description" style="height: 350px;">
+			  			<a href="{{ url_for('project_detail', project_id=project.id) }}"><img class="img-responsive center-block search-thumbnail" src="{{ project.image_path }}"></a>
+			  			</br/>
+			  			<strong><a href="{{ url_for('project_detail', project_id=project.id) }}">{{ project.name }}</a></strong>
+			  			</br/>
+			  			{{ project.short_description|truncate(200,False) }}
+		  			</div>
+
+			  		<div class="search-summary">
+			  			<div class="row">
+			  				<div class="col-sm-4 text-center">{{ project.percentage_funded }}% <br/> M.O.Q </div>
+			  				<div class="col-sm-4 text-center">{{ project.total_pledges }} <br/> sold </div>
+			  				<div class="col-sm-4 text-center">{{ project.num_days_left }} <br/> days left</div>
+			  			</div>		  		
+			  		</div>
+		  		</div>
+	  		</div>
+	  		<div class="col-sm-1"></div>
+
+	  	{% if loop.index % 3 == 0 %}
+
+
+	  	</div>
+	  	{% endif %}
+
+	  	{% endfor %}
+	  	
+	  </div>
+
+{% endblock content %}
